@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+
+    <h3>Makaleler</h3>
+
+    <form>
+        <!-- Form input with search button -->
+        {% csrf_token %}
+        <div class="form-group has-search">
+            <span class="fa fa-search form-control-feedback"></span>
+            <input type="text" class="form-control" name="keyword" placeholder="Birşeyler Arayın...">
+        </div>
+    </form>
+    <hr/>
+
+    {% if articles %}
+        {% for article in articles  %}
+            <div class="row">
+                <div class="col-md-10">
+                    <!-- Title -->
+                    <h3 class="mt-4"> <a href="{% url 'article:detail' article.id %}"> {{article.title}} </a></h3> <!---Dinamik Url --->
+                    <!-- Author -->
+                    <p class="lead">
+                        <a href="#"> {{article.author}} <span class="text-muted">tarafından yayınlandı.</span></a>
+                    </p>
+                    <hr>
+                    <!-- Date/Time -->
+                    <p>Posted on {{article.created_date}} </p>
+                    <hr>
+                    <!-- Preview Image -->
+                    {% if article.article_image %}
+                        <img class="img-fluid rounded" src="{{article.article_image.url}}" alt="">
+                    {% endif %}
+                    <hr>
+                    <!-- Post Content -->
+                    <p class="lead"></p>
+                    <blockquote class="blockquote">
+                        <p class="mb-0"> {{article.content | safe | truncatewords:10}} </p>
+                        <a style="float:right;" href="{% url 'article:detail' article.id %}" class="btn btn-danger">Devamını Oku</a>
+                        <footer class="blockquote-footer" style="clear:both;">Someone famous in
+                        <cite title="Source Title">Source Title</cite>
+                        </footer>
+                    </blockquote>
+                    <hr>
+                </div>
+            </div>    
+
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-danger">
+            Makale Bulunamadı.
+        </div>
+    {% endif %}
+
+
+{% endblock body %}

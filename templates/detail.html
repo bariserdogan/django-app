@@ -1,0 +1,84 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="row">
+
+        <!-- Post Content Column -->
+        
+        
+        <div class="col-lg-8">
+
+          <!-- Title -->
+          <h3 class="mt-4"> {{article.title}} </h3>
+
+          <!-- Author -->
+          <p class="lead">
+            by
+            <a href="#"> {{article.author}} </a>
+          </p>
+
+          <hr>
+
+          <!-- Date/Time -->
+          <p>Posted on {{article.created_date}} </p>
+
+          <hr>
+
+          <!-- Preview Image -->
+          {% if article.article_image %}
+            <img class="img-fluid rounded" src="{{article.article_image.url}}" alt="">
+          {% endif %}
+          <hr>
+
+          <!-- Post Content -->
+          <p class="lead"></p>
+
+          <blockquote class="blockquote">
+            <p class="mb-0"> {{article.content | safe}} </p>
+            <footer class="blockquote-footer">Someone famous in
+              <cite title="Source Title">Source Title</cite>
+            </footer>
+          </blockquote>
+          <hr>
+          <h4><b>Yorumlar</b></h4>
+          <hr/>
+          {% if comments %}
+            {% for comment in comments  %}
+              <div class="media mb-4">
+                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                <div class="media-body">
+                  <h5 class="mt-0"> {{comment.comment_author}} </h5>
+                  {{comment.created_date}} <br/>
+                  {{comment.comment_content}}
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="alert alert-danger">
+               Bu makaleye henzü bir yorum yapılmamış ilk yorum yapan sen ol !
+            </div>
+          {% endif %}
+
+          <div class="card my-4">
+            <h5 class="card-header">Bir yorum ekle</h5>
+            <div class="card-body">
+              <form method="post" action=" {% url 'article:comment' article.id %}">
+              {% csrf_token %}
+                <div class="form-group">
+                  <label for="nameforcomment">İsim</label>
+                  <input type="text" class="form-control" id="nameforcomment" name="commentAuthor" placeholder="İsminiz giriniz...">
+                </div>
+                <div class="form-group">
+                <label for="articlecomment">Yorum</label>
+                  <textarea class="form-control" id="articlecomment" rows="3" name="commentContent" placeholder="Yorumunuzu giriniz..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+              </form>
+            </div>
+          </div>
+        </div>
+         <!-- Comments Form -->
+      </div>    
+      
+{% endblock body %}

@@ -1,0 +1,48 @@
+29.11.2018
+----------------------
+$ python3 manage.run collectstatic
+$ pip3 install django-ckeditor --user
+
+
+1-12-2018
+----------------------
+$ pip3 install Pillow
+
+$ pip3 install django-cleanup 
+# Örneğin bir makaleyi sildiğimiz zaman onunla ilişkili resim dosyasını da media klasöründen silecek.Clean up modülünü bu nedenle yüklüyoruz.
+Kullanımı => article_image = models.FileField(blank=True, null=True, verbose_name="Makaleye Fotoğraf Ekleyin.")
+
+Artık article model yapımızı değiştirdiğimiz için bunu django'ya migrations ile söylememiz gerekiyor:
+$ python3 manage.py makemigrations
+$ python3 manage.py migrate
+
+3-12-2018
+----------------------
+login_required
+article update
+article delete
+
+4-12-2018
+----------------------
+articles page 
+google code prettify - Code snippet özelliği
+
+
+5-12-2018
+----------------------
+Django template filters
+* safe
+* truncatechars:10 (Stringten sadece 10 karakteri ekranda gösterir .)
+* truncatewords:10 (Stringten sadece 10 kelimeyi ekranda gösterir .)
+* load
+* extend
+* block
+
+GET
+keyword = request.GET.get("keyword") # name özelliğinin değeri "keyword" olan inputtan değer alıyoruz.
+
+Django Orm
+articles = Article.objects.filter(title__contains=keyword) ## keyword'ün geçtiği article'ları gönderecek.
+
+
+

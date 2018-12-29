@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container text-center">
+        <h2>Yazılım Bilimi Bloğuna hoşgeldiniz.</h2>
+        <p class="lead">Bu blogta geliştiriciler olarak blog yazılarınızı paylaşabilir ve sizin gibi diğer insanlara yardımcı olabilirsiniz.</p>
+    </div>
+</div>
+
+<p>
+    {% if request.user.is_authenticated %}
+        Giriş Yapılmış, {{request.user.username}}
+    {% else %}
+        Giriş Yapılmamış
+    {% endif %}
+</p>
+
+
+<div class="jumbotron jumbotron-fluid">
+   <ul>
+        {% for number in numbers %}
+            <li> {{number}} </li>
+        {% endfor %}
+   </ul>  
+</div>
+
+{% endblock body %}
